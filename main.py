@@ -6,18 +6,18 @@ from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 from aiocryptopay import AioCryptoPay, Networks
 
-bf_token = 'bot_father_token'
-crypto_pay_api = 'crypto_pay_api'
+bf_token = '6741685282:AAE3WiHGemnGciFoQyurfQo_Tku7ivSI9Uk'
+crypto_pay_api = '10852:AAxUOSgDYxDQ6JfA0VCGd03P3rWODrluOgs'
 
 bot = Bot(token=bf_token)
-crypto = AioCryptoPay(token=crypto_pay_api, network=Networks.TEST_NET) # testnet wallet!!!
+crypto = AioCryptoPay(token=crypto_pay_api, network=Networks.TEST_NET)
 dp = Dispatcher(bot)
 
 inline_kb = InlineKeyboardMarkup()
 
 # Добавляем кнопки с товарами и их ценами
 inline_kb.add(InlineKeyboardButton('Товар 1 - 0.99', callback_data='buy:1'))
-inline_kb.add(InlineKeyboardButton('Товар 2 - 0.01', callback_data='buy:2'))
+inline_kb.add(InlineKeyboardButton('Товар 2 - 0.05', callback_data='buy:2'))
 
 # Создаем обработчик команды /start, который будет отображать клавиатуру
 @dp.message_handler(commands=['start'])
@@ -31,7 +31,7 @@ async def process_callback_button1(callback_query: types.CallbackQuery):
     if code == '1':
         price = 0.99
     elif code == '2':
-        price = 0.01
+        price = 0.05
     else:
         await bot.answer_callback_query(callback_query.id)
         return
@@ -46,7 +46,7 @@ async def process_callback_button1(callback_query: types.CallbackQuery):
         print(invoices)
         for invoice in invoices:
             if invoice.status == 'paid':
-                await bot.send_message(callback_query.from_user.id, 'Спасибо за покупку!')
+                await bot.send_message(callback_query.from_user.id, 'Спасибо за покупку товара ' + code)
                 return
         # Пауза перед следующей проверкой статуса
         await asyncio.sleep(5)
