@@ -6,8 +6,8 @@ from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 from aiocryptopay import AioCryptoPay, Networks
 
-bf_token = '6741685282:AAE3WiHGemnGciFoQyurfQo_Tku7ivSI9Uk'
-crypto_pay_api = '10852:AAxUOSgDYxDQ6JfA0VCGd03P3rWODrluOgs'
+bf_token = 'botfarther_token'
+crypto_pay_api = 'cryptobot_api'
 
 bot = Bot(token=bf_token)
 crypto = AioCryptoPay(token=crypto_pay_api, network=Networks.TEST_NET)
