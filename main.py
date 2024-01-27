@@ -83,6 +83,7 @@ async def process_callback_button1(callback_query: types.CallbackQuery):
         await asyncio.wait_for(check_invoice_status(fiat_invoice, callback_query, code), timeout=900)
     except asyncio.TimeoutError:
         await bot.send_message(callback_query.from_user.id, 'Время ожидания оплаты истекло')
+        await crypto.delete_invoice(invoice_id=fiat_invoice.invoice_id)
 
 @dp.callback_query_handler(lambda c: c.data and c.data.startswith('cancel:'))
 async def process_cancel_button(callback_query: types.CallbackQuery):
